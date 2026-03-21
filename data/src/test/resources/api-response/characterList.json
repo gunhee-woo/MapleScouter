@@ -1,0 +1,23 @@
+{
+  "account_list": [
+    {
+      "account_id": "b2523859dd69dcff32ffa7040273106d",
+      "character_list": [
+        {
+          "ocid": "231c52f45865671f8f2e7cd8cef73c1a",
+          "character_name": "DMONSLAER",
+          "world_name": "루나",
+          "character_class": "데몬슬레이어",
+          "character_level": 133
+        },
+        {
+          "ocid": "59de8e10b6ceb34f9f307e89da3d3d1d",
+          "character_name": "KX카이저소제",
+          "world_name": "루나",
+          "character_class": "카이저",
+          "character_level": 74
+        }
+      ]
+    }
+  ]
+}
