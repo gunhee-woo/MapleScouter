@@ -26,3 +26,4 @@ rootProject.name = "MapleScouter"
 include(":app")
 include(":core")
 include(":data")
+include(":domain")

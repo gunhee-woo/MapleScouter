@@ -73,8 +73,20 @@ dependencies {
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
 
+    // di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    implementation(project(":domain"))
+
     testImplementation(libs.junit)
+
+    // Robolectric
+    // 안드로이드 기기나 에뮬레이터 없이 로컬 JVM 환경에서 안드로이드 코드를 테스트하게 해주는 프레임워크
+    // ex) Log, Context, Intent, View 등
+    // 속도(앱 설치 X, 테스트 속도가 빠름), 안드로이드 의존성 해결
     testImplementation(libs.robolectric)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

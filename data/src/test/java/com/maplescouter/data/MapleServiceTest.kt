@@ -47,4 +47,18 @@ class MapleServiceTest: ApiAbstract<MapleApi>() {
         }
 
     }
+
+    @Test
+    fun fetchMapleApiAchievementTest() = runTest {
+        val response = service.fetchAchievement()
+        if(response.isSuccessful) {
+            val responseBody = response.body()
+            println("API Response Body: $responseBody")
+            assert(responseBody != null)
+            assert(responseBody!!.accountList.isNotEmpty())
+        } else {
+            println("Error Body: ${response.errorBody()?.string()}")
+        }
+
+    }
 }

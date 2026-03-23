@@ -1,6 +1,7 @@
 package com.maplescouter.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.squareup.moshi.Moshi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,6 +31,9 @@ abstract class ApiAbstract<T> {
 
     lateinit var mockWebServer: MockWebServer
 
+    private val moshi = Moshi.Builder().build()
+    private val jsonAdapter = moshi.adapter(Any::class.java).indent("  ")
+
     @Before
     fun mockServer() {
         mockWebServer = MockWebServer()
@@ -55,8 +59,23 @@ abstract class ApiAbstract<T> {
         mockWebServer.enqueue(mockResponse.setBody(source.readString(StandardCharsets.UTF_8)))
     }
 
+    private fun prettyPrintJson(message: String): String {
+        return if (message.startsWith("{") || message.startsWith("[")) {
+            try {
+                val json = jsonAdapter.fromJson(message)
+                jsonAdapter.toJson(json)
+            } catch (e: Exception) {
+                message
+            }
+        } else {
+            message
+        }
+    }
+
     fun createMockWebService(clazz: Class<T>): T {
-        val logger = HttpLoggingInterceptor().apply {
+        val logger = HttpLoggingInterceptor { message ->
+            println("Mock HTTP Log : ${prettyPrintJson(message)}")
+        }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
@@ -74,7 +93,7 @@ abstract class ApiAbstract<T> {
 
     fun createService(clazz: Class<T>): T {
         val logger = HttpLoggingInterceptor { message ->
-            println("HTTP Log : $message")
+            println("HTTP Log : ${prettyPrintJson(message)}")
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
