@@ -1,5 +1,6 @@
 package com.example.maplescouter.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maplescouter.domain.model.ApiResult
@@ -24,6 +25,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun fetchCharacterList() {
+        Log.d("MainViewModel", "Fetching character list...")
         viewModelScope.launch {
             _characterListState.value = ApiResult.Loading
             _characterListState.value = getCharacterListUseCase()

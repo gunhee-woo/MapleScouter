@@ -1,6 +1,7 @@
 package com.maplescouter.domain.repository
 
 import com.maplescouter.domain.model.ApiResult
+import com.maplescouter.domain.model.CharacterBasic
 import com.maplescouter.domain.model.CharacterInfo
 
 /*
@@ -14,4 +15,5 @@ import com.maplescouter.domain.model.CharacterInfo
  */
 interface MapleRepository {
     suspend fun getCharacterList(): ApiResult<List<CharacterInfo>>
+    suspend fun getCharacterBasic(name: String): ApiResult<CharacterBasic>
 }

@@ -1,5 +1,6 @@
 package com.example.maplescouter.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +23,10 @@ import com.maplescouter.domain.model.ApiResult
 import com.maplescouter.domain.model.CharacterInfo
 
 @Composable
-fun MainScreen(state: ApiResult<List<CharacterInfo>>) {
+fun MainScreen(
+    state: ApiResult<List<CharacterInfo>>,
+    onCharacterClick: (String) -> Unit = {}
+) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Box(
             modifier = Modifier
@@ -35,7 +39,7 @@ fun MainScreen(state: ApiResult<List<CharacterInfo>>) {
                 }
 
                 is ApiResult.Success -> {
-                    CharacterListScreen(state.data)
+                    CharacterListScreen(state.data, onCharacterClick)
                 }
 
                 is ApiResult.Error -> {
@@ -51,20 +55,27 @@ fun MainScreen(state: ApiResult<List<CharacterInfo>>) {
 }
 
 @Composable
-fun CharacterListScreen(characters: List<CharacterInfo>) {
+fun CharacterListScreen(
+    characters: List<CharacterInfo>,
+    onCharacterClick: (String) -> Unit
+) {
     LazyColumn {
         items(characters) { character ->
-            CharacterItem(character)
+            CharacterItem(character, onCharacterClick)
         }
     }
 }
 
 @Composable
-fun CharacterItem(character: CharacterInfo) {
+fun CharacterItem(
+    character: CharacterInfo,
+    onCharacterClick: (String) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable { onCharacterClick(character.ocid) }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "이름: ${character.name}", style = MaterialTheme.typography.titleMedium)

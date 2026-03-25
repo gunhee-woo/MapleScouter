@@ -1,6 +1,7 @@
 package com.maplescouter.data.remote.datasource
 
 import com.maplescouter.data.remote.dto.Achievement
+import com.maplescouter.data.remote.dto.CharacterBasic
 import com.maplescouter.data.remote.dto.CharacterList
 import retrofit2.Response
 
@@ -17,4 +18,5 @@ import retrofit2.Response
 interface MapleRemoteDataSource {
     suspend fun fetchCharacterList(): Response<CharacterList>
     suspend fun fetchAchievement(): Response<Achievement>
+    suspend fun fetchCharacterBasic(): Response<CharacterBasic>
 }

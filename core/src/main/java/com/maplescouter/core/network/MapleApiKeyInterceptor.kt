@@ -1,5 +1,6 @@
 package com.maplescouter.core.network
 
+import com.maplescouter.core.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
