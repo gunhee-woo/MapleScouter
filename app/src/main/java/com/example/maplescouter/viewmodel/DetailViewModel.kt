@@ -20,10 +20,10 @@ class DetailViewModel @Inject constructor(
     private val _characterBasicState = MutableStateFlow<ApiResult<CharacterBasic>>(ApiResult.Loading)
     val characterBasicState: StateFlow<ApiResult<CharacterBasic>> = _characterBasicState
 
-    fun fetchCharacterBasic(name: String) {
+    fun fetchCharacterBasic(name: String, date: String?) {
         viewModelScope.launch {
             _characterBasicState.value = ApiResult.Loading
-            _characterBasicState.value = getCharacterBasicUseCase(name)
+            _characterBasicState.value = getCharacterBasicUseCase(name, date)
         }
     }
 }

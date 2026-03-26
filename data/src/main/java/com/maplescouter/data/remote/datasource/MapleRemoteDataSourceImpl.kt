@@ -18,7 +18,7 @@ class MapleRemoteDataSourceImpl @Inject constructor(
         return mapleApi.fetchAchievement()
     }
 
-    override suspend fun fetchCharacterBasic(): Response<CharacterBasic> {
-        return mapleApi.fetchCharacterBasic()
+    override suspend fun fetchCharacterBasic(ocid: String, date: String?): Response<CharacterBasic> {
+        return mapleApi.fetchCharacterBasic(ocid, date)
     }
 }

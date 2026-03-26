@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetCharacterBasicUseCase @Inject constructor(
     private val mapleRepository: MapleRepository
 ) {
-    suspend operator fun invoke(name: String): ApiResult<CharacterBasic> {
-        return mapleRepository.getCharacterBasic(name)
+    suspend operator fun invoke(ocid: String, date: String?): ApiResult<CharacterBasic> {
+        return mapleRepository.getCharacterBasic(ocid, date)
     }
 }

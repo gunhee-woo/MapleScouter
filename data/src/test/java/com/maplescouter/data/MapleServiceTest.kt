@@ -61,4 +61,17 @@ class MapleServiceTest: ApiAbstract<MapleApi>() {
         }
 
     }
+
+    @Test
+    fun fetchCharacterBasicTest() = runTest {
+        val ocid = "a9fd92ddf987605ebc27b4af2939adf5"
+        val response = service.fetchCharacterBasic(ocid, null)
+        if(response.isSuccessful) {
+            val responseBody = response.body()
+            println("API Response Body: $responseBody")
+            assert(responseBody != null)
+        } else {
+            println("Error Body: ${response.errorBody()?.string()}")
+        }
+    }
 }

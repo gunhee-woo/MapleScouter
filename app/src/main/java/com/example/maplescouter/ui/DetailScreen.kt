@@ -27,20 +27,23 @@ import com.example.maplescouter.ui.theme.MapleScouterTheme
 import com.example.maplescouter.viewmodel.DetailViewModel
 import com.maplescouter.domain.model.ApiResult
 import com.maplescouter.domain.model.CharacterBasic
-import com.maplescouter.domain.model.CharacterInfo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
-    name: String?,
+    ocid: String?,
     onBackClick: () -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val characterBasicState by viewModel.characterBasicState.collectAsState()
 
-    LaunchedEffect(name) {
-        name?.let {
-            viewModel.fetchCharacterBasic(it)
+    /*
+        ocid 값이 바뀔 때마다 fetchCharacterBasic 실행하므로 효율적이고 안전
+        리컴포지션이 일어날 때마다 무한 호출되는 문제 해결
+     */
+    LaunchedEffect(ocid) {
+        ocid?.let {
+            viewModel.fetchCharacterBasic(it, null)
         }
     }
 
@@ -91,7 +94,7 @@ fun DetailContent(characterBasic: CharacterBasic) {
         Text(text = "월드: ${characterBasic.worldName}", modifier = Modifier.padding(top = 8.dp))
         Text(text = "직업: ${characterBasic.className}")
         Text(text = "레벨: ${characterBasic.level}")
-        Text(text = "OCID: ${characterBasic.ocid}", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 16.dp))
+        Text(text = "길드: ${characterBasic.guildName ?: "없음"}")
     }
 }
 
@@ -101,10 +104,20 @@ fun DetailScreenPreview() {
     MapleScouterTheme {
         DetailContent(
             characterBasic = CharacterBasic(
-                name = "데몬슬레이어",
-                world = "루나",
-                job = "데몬슬레이어",
-                level = 285
+                date = null,
+                name = "서현동불독",
+                worldName = "크로아",
+                gender = "남",
+                className = "아크메이지(불,독)",
+                classLevel = "6",
+                level = 288,
+                exp = 55952821541089L,
+                expRate = "42.244",
+                guildName = "StelLive",
+                imageUrl = "",
+                createDate = "2022-07-08T00:00+09:00",
+                accessFlag = true,
+                liberationQuestClear = true
             )
         )
     }

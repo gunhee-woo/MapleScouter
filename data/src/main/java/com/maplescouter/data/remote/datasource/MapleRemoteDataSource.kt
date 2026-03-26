@@ -18,5 +18,5 @@ import retrofit2.Response
 interface MapleRemoteDataSource {
     suspend fun fetchCharacterList(): Response<CharacterList>
     suspend fun fetchAchievement(): Response<Achievement>
-    suspend fun fetchCharacterBasic(): Response<CharacterBasic>
+    suspend fun fetchCharacterBasic(ocid: String, date: String?): Response<CharacterBasic>
 }

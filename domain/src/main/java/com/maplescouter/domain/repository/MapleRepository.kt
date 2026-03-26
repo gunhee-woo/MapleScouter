@@ -15,5 +15,5 @@ import com.maplescouter.domain.model.CharacterInfo
  */
 interface MapleRepository {
     suspend fun getCharacterList(): ApiResult<List<CharacterInfo>>
-    suspend fun getCharacterBasic(name: String): ApiResult<CharacterBasic>
+    suspend fun getCharacterBasic(ocid: String, date: String?): ApiResult<CharacterBasic>
 }

@@ -8,11 +8,7 @@ plugins {
 android {
     namespace = "com.maplescouter.data"
 
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     buildFeatures {
         buildConfig = true
@@ -72,6 +68,11 @@ dependencies {
     // json parsing
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
+
+    // room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     // di
     implementation(libs.hilt.android)
